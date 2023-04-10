@@ -1,16 +1,3 @@
-# \<ondefy-widget>
-
-This webcomponent follows the [open-wc](https://github.com/open-wc/open-wc) recommendation.
-
-## Installation
-
-```bash
-npm i ondefy-widget
-```
-
-## Usage
-
-```html
 <!doctype html>
 <html lang="en-US">
 <head>
@@ -29,6 +16,7 @@ npm i ondefy-widget
   network-id="1"
   token-id="ethereum"
   color-primary="ffee00"
+  _server-url="http://localhost:4004"
 >
   <button>Method 1: User component triggers fullscreen</button>
 </ondefy-ramp-button>
@@ -40,7 +28,9 @@ npm i ondefy-widget
        frameBorderRadius: '18',
        networkId: '1',
        tokenId: 'ethereum',
-       colorPrimary: '4EB9A3'
+       colorPrimary: '4EB9A3',
+       _serverUrl: 'https://ramp.preprod.ondefy.com/',
+        // _serverUrl: 'http://localhost:4004'
      },
    })
  )">
@@ -52,7 +42,8 @@ npm i ondefy-widget
      frameBorderRadius: '18',
      networkId: '1',
      tokenId: 'ethereum',
-     colorPrimary: '4EB9A3'
+     colorPrimary: '4EB9A3',
+     _serverUrl: 'http://localhost:4004'
    })">
   Method 3: Using Ondefy SDK
 </button>
@@ -66,9 +57,12 @@ npm i ondefy-widget
   __server-url="http://localhost:4004"
 ></ondefy-ramp-iframe>
 
+<!--  To check production build -->
+<script src="../dist/ondefy-widget.js"></script>
 
-<script src="./dist/ondefy-widget.js"></script>
+<!--  For local development -->
+<!--  <script type="module">-->
+<!--    import '../dist/src/ondefy-widget.js.js';-->
+<!--  </script>-->
 </body>
 </html>
-
-```
