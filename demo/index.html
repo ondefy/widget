@@ -8,10 +8,12 @@
     background: #eeeeee;
   }
 </style>
+
+<script src="../dist/ondefy-widget.js" async></script>
 <body>
 <!--  Put it wherever you like - in any place where you render html-->
 
-<ondefy-ramp-button
+<ondefy-button
   frame-border-radius="18"
   network-id="1"
   token-id="ethereum"
@@ -19,26 +21,17 @@
   _server-url="http://localhost:4004"
 >
   <button>Method 1: User component triggers fullscreen</button>
-</ondefy-ramp-button>
+</ondefy-button>
 
 <button
   onclick="document.body.dispatchEvent(
-    new CustomEvent('ondefy:launch-ramp-fullscreen', {
-      detail: {
-       frameBorderRadius: '18',
-       networkId: '1',
-       tokenId: 'ethereum',
-       colorPrimary: '4EB9A3',
-       _serverUrl: 'https://ramp.preprod.ondefy.com/',
-        // _serverUrl: 'http://localhost:4004'
-     },
-   })
+    new CustomEvent('ondefy:launch-widget-fullscreen')
  )">
   Method 2: Using Custom Event
 </button>
 
 <button
-  onclick="Ondefy.launchRampFullscreen({
+  onclick="Ondefy.launchWidgetFullscreen({
      frameBorderRadius: '18',
      networkId: '1',
      tokenId: 'ethereum',
@@ -48,21 +41,14 @@
   Method 3: Using Ondefy SDK
 </button>
 
-<ondefy-ramp-iframe
+<ondefy-widget
   frame-border-radius="18"
   frame-height="500"
   network-id="1"
   token-id="ethereum"
   color-primary="4EB9A3"
-  __server-url="http://localhost:4004"
-></ondefy-ramp-iframe>
+></ondefy-widget>
 
-<!--  To check production build -->
-<script src="../dist/ondefy-widget.js"></script>
 
-<!--  For local development -->
-<!--  <script type="module">-->
-<!--    import '../dist/src/ondefy-widget.js.js';-->
-<!--  </script>-->
 </body>
 </html>

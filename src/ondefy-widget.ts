@@ -9,11 +9,11 @@
   }
 
   const EVENTS = {
-    launchRampFullscreen: 'ondefy:launch-ramp-fullscreen',
+    launchWidgetFullscreen: 'ondefy:launch-widget-fullscreen',
     rampReady: 'ondefy:ready',
   };
 
-  type TEventLaunchRampFullscreen = {
+  type TEventLaunchWidgetFullscreen = {
     frameBorderRadius?: string;
     colorPrimary?: string;
     tokenId?: string;
@@ -54,13 +54,13 @@
   </svg>
   `;
 
-  const templateOndefyRampButton = document.createElement('template');
+  const templateOndefyButton = document.createElement('template');
 
-  templateOndefyRampButton.innerHTML = `
+  templateOndefyButton.innerHTML = `
       <slot></slot>
     `;
 
-  class OndefyRampButton extends HTMLElement {
+  class OndefyButton extends HTMLElement {
     static get observedAttributes() {
       return [
         'class',
@@ -78,7 +78,7 @@
       super();
       this._shadowRoot = this.attachShadow({ mode: 'open' });
       this._shadowRoot.appendChild(
-        templateOndefyRampButton.content.cloneNode(true)
+        templateOndefyButton.content.cloneNode(true)
       );
     }
 
@@ -88,7 +88,7 @@
 
     onClick() {
       document.body.dispatchEvent(
-        new CustomEvent(EVENTS.launchRampFullscreen, {
+        new CustomEvent(EVENTS.launchWidgetFullscreen, {
           detail: {
             frameBorderRadius: this.frameBorderRadius,
             networkId: this.networkId,
@@ -262,9 +262,9 @@
       </style>
   `;
 
-  const templateOndefyRampModal = document.createElement('template');
+  const templateOndefyWidgetFullscreen = document.createElement('template');
 
-  templateOndefyRampModal.innerHTML = `
+  templateOndefyWidgetFullscreen.innerHTML = `
       ${css}
       <div class="ondefy__modal">
         <div
@@ -289,7 +289,7 @@
       </div>
     `;
 
-  class OndefyRampModal extends HTMLElement {
+  class OndefyWidgetFullscreen extends HTMLElement {
     static get observedAttributes() {
       return ['class', 'className'];
     }
@@ -312,7 +312,7 @@
       super();
       this._shadowRoot = this.attachShadow({ mode: 'open' });
       this._shadowRoot.appendChild(
-        templateOndefyRampModal.content.cloneNode(true)
+        templateOndefyWidgetFullscreen.content.cloneNode(true)
       );
 
       this.bodyEl = null;
@@ -490,7 +490,7 @@
       this.toggle(false);
     }
 
-    openHandler(e: CustomEvent<TEventLaunchRampFullscreen>) {
+    openHandler(e: CustomEvent<TEventLaunchWidgetFullscreen>) {
       this.params = e.detail;
 
       this.toggle(true);
@@ -509,7 +509,7 @@
       //   .addEventListener('click', this.closeHandler);
 
       document.body.addEventListener(
-        EVENTS.launchRampFullscreen,
+        EVENTS.launchWidgetFullscreen,
         this.openHandler as EventListener
       );
       window.addEventListener('resize', this.onWindowResize);
@@ -524,7 +524,7 @@
       //   .removeEventListener('click', this.closeHandler);
 
       document.body.removeEventListener(
-        EVENTS.launchRampFullscreen,
+        EVENTS.launchWidgetFullscreen,
         this.openHandler as EventListener
       );
       window.removeEventListener('resize', this.onWindowResize);
@@ -628,9 +628,9 @@
       </style>
   `;
 
-  const templateOndefyRampIframe = document.createElement('template');
+  const templateOndefyWidget = document.createElement('template');
 
-  templateOndefyRampIframe.innerHTML = `
+  templateOndefyWidget.innerHTML = `
       ${cssIframe}
       <div class="ondefy__iframe">
         <div class="ondefy__iframe__content">
@@ -645,7 +645,7 @@
       </div>
     `;
 
-  class OndefyRampIframe extends HTMLElement {
+  class OndefyWidget extends HTMLElement {
     static get observedAttributes() {
       return [
         'class',
@@ -699,7 +699,7 @@
       super();
       this._shadowRoot = this.attachShadow({ mode: 'open' });
       this._shadowRoot.appendChild(
-        templateOndefyRampIframe.content.cloneNode(true)
+        templateOndefyWidget.content.cloneNode(true)
       );
 
       this.bodyEl = null;
@@ -903,14 +903,17 @@
   }
 
   if (window) {
-    window.customElements.define('ondefy-ramp-button', OndefyRampButton);
-    window.customElements.define('ondefy-ramp-modal', OndefyRampModal);
-    window.customElements.define('ondefy-ramp-iframe', OndefyRampIframe);
+    window.customElements.define('ondefy-button', OndefyButton);
+    window.customElements.define(
+      'ondefy-widget-fullscreen',
+      OndefyWidgetFullscreen
+    );
+    window.customElements.define('ondefy-widget', OndefyWidget);
 
     window.Ondefy = {
-      launchRampFullscreen(params: TEventLaunchRampFullscreen) {
+      launchWidgetFullscreen(params: TEventLaunchWidgetFullscreen) {
         document.body.dispatchEvent(
-          new CustomEvent(EVENTS.launchRampFullscreen, {
+          new CustomEvent(EVENTS.launchWidgetFullscreen, {
             detail: params,
           })
         );
@@ -919,7 +922,7 @@
   }
 
   const template = document.createElement('template');
-  template.innerHTML = '<ondefy-ramp-modal></ondefy-ramp-modal>';
+  template.innerHTML = '<ondefy-widget-fullscreen></ondefy-widget-fullscreen>';
 
   // document.addEventListener('DOMContentLoaded', () => {
   document.body.appendChild(template.content);

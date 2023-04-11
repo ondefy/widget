@@ -1,6 +1,6 @@
 declare global {
   var Ondefy: {
-    launchRampFullscreen: (params: {
+    launchWidgetFullscreen: (params: {
       frameBorderRadius?: string;
       colorPrimary?: string;
       tokenId?: string;
