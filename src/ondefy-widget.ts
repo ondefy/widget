@@ -545,6 +545,7 @@
         :host {
             display: inline-block;
             width: 100%;
+            max-width: 500px;
         }
 
         .ondefy__iframe {
@@ -617,23 +618,6 @@
           display: flex;
           justify-content: center;
           align-items: center;
-        }
-
-        .ondefy__iframe__spinner {
-          width: 80px;
-          height: 80px;
-          opacity: 0.6;
-        }
-        .ondefy__iframe__spinner:after {
-          content: " ";
-          display: block;
-          width: 64px;
-          height: 64px;
-          margin: 8px;
-          border-radius: 50%;
-          border: 6px solid #161E25;
-          border-color: #161E25 transparent #161E25 transparent;
-          animation: lds-dual-ring 1.2s linear infinite;
         }
 
         .ondefy__skeleton-loader {
