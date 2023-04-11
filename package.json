@@ -1,5 +1,5 @@
 {
-  "name": "ondefy-widget",
+  "name": "@ondefy/widget",
   "description": "Webcomponent ondefy-widget following open-wc recommendations",
   "license": "MIT",
   "author": "Ondefy Team",
