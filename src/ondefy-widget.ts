@@ -361,12 +361,14 @@
 
     setIframeRadius(iframe: HTMLIFrameElement) {
       const { frameBorderRadius } = this.params || {};
-      const radiusStyle = `${parseInt(frameBorderRadius || '18', 10) || '0'}px`;
+      const radiusStyle = `${
+        parseInt(frameBorderRadius || '18', 10) || '18'
+      }px`;
 
       iframe.style.borderRadius = radiusStyle;
 
       const loading = this._shadowRoot.querySelector(
-        '.ondefy__iframe__loading'
+        '.ondefy__modal__loading'
       ) as HTMLElement;
 
       if (loading) {
@@ -408,13 +410,8 @@
 
       if (open) {
         document.body.style.overflow = 'hidden';
-        const {
-          tokenId,
-          networkId,
-          _serverUrl,
-          frameBorderRadius,
-          colorPrimary,
-        } = this.params || {};
+        const { tokenId, networkId, _serverUrl, colorPrimary } =
+          this.params || {};
         const queryParams = {
           tokenId,
           networkId,
@@ -430,16 +427,11 @@
 
         querySearch = querySearch ? `?${querySearch}` : '';
 
-        const radiusStyle = `border-radius: ${
-          parseInt(frameBorderRadius || '', 10) || '0'
-        }px;`;
-
         iframe.setAttribute(
           'src',
           (_serverUrl || 'https://ramp.ondefy.com/') + querySearch
         );
         iframe.setAttribute('frameBorder', '0');
-        iframe.setAttribute('style', radiusStyle);
         iframe.setAttribute('width', '100%');
         this.setIframeHeight(iframe);
         this.setIframeRadius(iframe);
@@ -450,28 +442,12 @@
           this.bodyEl!.appendChild(iframe);
         }
 
-        const loading = this._shadowRoot.querySelector(
-          '.ondefy__modal__loading'
-        );
-
-        if (loading) {
-          loading.setAttribute('style', radiusStyle);
-        }
-
-        const content = this._shadowRoot.querySelector(
-          '.ondefy__modal__content'
-        );
-
-        if (content) {
-          content.setAttribute('style', radiusStyle);
-        }
-
         if (this.rootEl) {
           this.rootEl.classList.add('ondefy__modal--visible');
         }
       } else {
         document.body.style.overflow = 'unset';
-        window.addEventListener('message', this.onPostMessage);
+        window.removeEventListener('message', this.onPostMessage);
 
         if (this.rootEl) {
           this.rootEl.classList.remove('ondefy__modal--visible');
@@ -479,7 +455,10 @@
         setTimeout(() => {
           if (this.rootEl) {
             const iframeEl = this.rootEl.querySelector('iframe')!;
-            iframeEl.parentNode!.removeChild(iframeEl);
+
+            if (iframeEl && iframeEl.parentNode) {
+              iframeEl.parentNode!.removeChild(iframeEl);
+            }
           }
           this.toggleLoader(true);
         }, 300);
@@ -767,7 +746,7 @@
 
     setIframeRadius(iframe: HTMLIFrameElement) {
       const { frameBorderRadius } = this;
-      const radiusStyle = `${parseInt(frameBorderRadius || '', 10) || '0'}px`;
+      const radiusStyle = `${parseInt(frameBorderRadius || '', 10) || '18'}px`;
 
       iframe.style.borderRadius = radiusStyle;
 
