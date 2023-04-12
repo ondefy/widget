@@ -147,6 +147,7 @@ declare global {
     'color-primary'?: string;
     'token-id'?: string;
     'network-id'?: string;
+    class?: string;
   }
 
   interface OndefyButton
