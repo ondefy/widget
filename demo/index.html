@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+</head>
+<style>
+  body {
+    background: #eeeeee;
+  }
+</style>
+
+<!--<script src="../dist/index.min.js" async></script>-->
+<script type="module">
+  import '../dist/index.esm.js'
+  // import '../dist/index.umd.js'
+</script>
+<body>
+<!--  Put it wherever you like - in any place where you render html-->
+
+<ondefy-button
+  frame-border-radius="18"
+  network-id="1"
+  token-id="ethereum"
+  color-primary="ff0000"
+>
+  <button>Method 1: User component triggers fullscreen</button>
+</ondefy-button>
+
+<button
+  onclick="document.body.dispatchEvent(
+    new CustomEvent('ondefy:launch-widget-fullscreen')
+ )">
+  Method 2: Using Custom Event
+</button>
+
+<button
+  onclick="Ondefy.launchWidgetFullscreen({
+     frameBorderRadius: '18',
+     networkId: '1',
+     tokenId: 'ethereum',
+     colorPrimary: '4EB9A3'
+   })">
+  Method 3: Using Ondefy SDK
+</button>
+
+<ondefy-widget
+  frame-border-radius="18"
+  frame-height="500"
+  network-id="1"
+  token-id="ethereum"
+  color-primary="4EB9A3"
+></ondefy-widget>
+
+
+</body>
+</html>

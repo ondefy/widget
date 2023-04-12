@@ -1,0 +1,110 @@
+{
+  "name": "@ondefy/widget",
+  "version": "0.0.2",
+  "description": "Ondefy widget web components",
+  "license": "MIT",
+  "author": "Ondefy Team",
+  "engines": {
+    "node": "^16.0.0"
+  },
+  "declaration": true,
+  "typings": "dist/index.d.ts",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.esm.js",
+  "keywords": [],
+  "homepage": "https://github.com/ondefy/widget",
+  "bugs": {
+    "url": "https://github.com/ondefy/widget/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ondefy/widget.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "analyze": "cem analyze --litelement",
+    "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
+    "build": "rm -rf dist && rollup -c",
+    "prepublish": "tsc && npm run analyze -- --exclude dist",
+    "tslint": "tsc --noEmit",
+    "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
+    "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
+    "storybook": "tsc && npm run analyze -- --exclude dist && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\"",
+    "storybook:build": "tsc && npm run analyze -- --exclude dist && build-storybook"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.4.17",
+    "@open-wc/eslint-config": "^9.2.1",
+    "@rollup/plugin-terser": "^0.4.0",
+    "@typescript-eslint/eslint-plugin": "^5.48.0",
+    "@typescript-eslint/parser": "^5.48.0",
+    "@web/dev-server": "^0.1.34",
+    "@web/dev-server-storybook": "^0.5.4",
+    "concurrently": "^5.3.0",
+    "eslint": "^8.31.0",
+    "eslint-config-prettier": "^8.3.0",
+    "husky": "^4.3.8",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.4.1",
+    "rollup": "^2.66.0",
+    "rollup-plugin-delete": "^2.0.0",
+    "rollup-plugin-typescript2": "^0.34.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.2"
+  },
+  "customElements": "custom-elements.json",
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+      "@open-wc",
+      "prettier"
+    ],
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "rules": {
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error"
+      ],
+      "vars-on-top": "off",
+      "no-var": "off",
+      "max-classes-per-file": "off",
+      "import/no-unresolved": "off",
+      "no-empty": "off",
+      "wc/require-listener-teardown": "off",
+      "class-methods-use-this": "off",
+      "no-param-reassign": "off",
+      "no-nested-ternary": "off",
+      "no-unneeded-ternary": "off",
+      "import/extensions": [
+        "error",
+        "always",
+        {
+          "ignorePackages": true
+        }
+      ]
+    },
+    "globals": {
+      "EventListener": "readonly"
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "arrowParens": "avoid"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  }
+}
