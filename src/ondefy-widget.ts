@@ -388,18 +388,19 @@ declare global {
       }
 
       const content = this._shadowRoot.querySelector(
-        '.ondefy__iframe__content'
+        '.ondefy__modal__content'
       ) as HTMLElement;
 
       if (content) {
         content.style.borderRadius = radiusStyle;
       }
 
-      const contentWrapper = this._shadowRoot.querySelector(
-        '.ondefy__iframe'
+      const contentInner = this._shadowRoot.querySelector(
+        '.ondefy__modal__content-inner'
       ) as HTMLElement;
-      if (contentWrapper) {
-        contentWrapper.style.borderRadius = radiusStyle;
+
+      if (contentInner) {
+        contentInner.style.borderRadius = radiusStyle;
       }
 
       const body = this._shadowRoot.querySelector(

@@ -9,7 +9,11 @@
   }
 </style>
 
-<script src="../dist/ondefy-widget.js" async></script>
+<!--<script src="../dist/index.min.js" async></script>-->
+<script type="module">
+  // import '../dist/index.esm'
+  import '../dist/index.umd'
+</script>
 <body>
 <!--  Put it wherever you like - in any place where you render html-->
 
@@ -17,8 +21,7 @@
   frame-border-radius="18"
   network-id="1"
   token-id="ethereum"
-  color-primary="ffee00"
-  _server-url="http://localhost:4004"
+  color-primary="ff0000"
 >
   <button>Method 1: User component triggers fullscreen</button>
 </ondefy-button>
@@ -35,8 +38,7 @@
      frameBorderRadius: '18',
      networkId: '1',
      tokenId: 'ethereum',
-     colorPrimary: '4EB9A3',
-     _serverUrl: 'http://localhost:4004'
+     colorPrimary: '4EB9A3'
    })">
   Method 3: Using Ondefy SDK
 </button>
