@@ -1,16 +1,16 @@
 {
   "name": "@ondefy/widget",
+  "version": "0.0.1",
   "description": "Ondefy widget web components",
   "license": "MIT",
   "author": "Ondefy Team",
-  "version": "0.0.0",
-  "type": "module",
-  "main": "dist/ondefy-widget.js",
-  "module": "dist/ondefy-widget.js",
-  "exports": {
-    ".": "./dist/index.js",
-    "./ondefy-widget.js": "./dist/ondefy-widget.js"
+  "engines": {
+    "node": "^16.0.0"
   },
+  "declaration": true,
+  "typings": "dist/index.d.ts",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.esm.js",
   "keywords": [],
   "homepage": "https://github.com/ondefy/widget",
   "bugs": {
@@ -21,7 +21,7 @@
     "url": "git+https://github.com/ondefy/widget.git"
   },
   "files": [
-    "dist/**/*"
+    "dist"
   ],
   "scripts": {
     "analyze": "cem analyze --litelement",
@@ -49,7 +49,7 @@
     "husky": "^4.3.8",
     "lint-staged": "^10.5.4",
     "prettier": "^2.4.1",
-    "rollup": "^3.20.2",
+    "rollup": "^2.66.0",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-typescript2": "^0.34.1",
     "tslib": "^2.3.1",

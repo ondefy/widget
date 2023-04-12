@@ -6,25 +6,26 @@ import del from 'rollup-plugin-delete'
 // import bundleSize from 'rollup-plugin-bundle-size'
 // import svgr from '@svgr/rollup'
 // import copy from 'rollup-plugin-copy'
-// const pkg = require('./package.json');
+import pkg from './package.json';
 import terser from '@rollup/plugin-terser';
 
 export default [
   {
-    input: 'index.js',
+    input: 'index.ts',
+    // https://rollupjs.org/configuration-options/#output-format
     output: [
-      // {
-      //   file: pkg.main,
-      //   format: 'cjs',
-      //   sourcemap: true
-      // },
-      // {
-      //   file: pkg.module,
-      //   format: 'es',
-      //   sourcemap: true
-      // },
       {
-        file: 'dist/ondefy-widget.js',
+        file: pkg.main,
+        format: 'umd',
+        sourcemap: true
+      },
+      {
+        file: pkg.module,
+        format: 'es',
+        sourcemap: true
+      },
+      {
+        file: 'dist/index.min.js',
         format: 'iife',
         sourcemap: true
       }
