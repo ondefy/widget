@@ -32,7 +32,7 @@ import 'ondefy-widget'
   frame-height="500"
   network-id="1"
   token-id="ethereum"
-  color-primary="4EB9A3"
+  color-primary="#4EB9A3"
 ></ondefy-widget>
 ```
 
@@ -52,7 +52,7 @@ or with optional parameters
   frame-border-radius="18"
   network-id="1"
   token-id="ethereum"
-  color-primary="ffee00"
+  color-primary="#ffee00"
 >
   <button>My button</button>
 </ondefy-widget-button>
@@ -78,7 +78,7 @@ or with optional parameters
        frameBorderRadius: '18',
        networkId: '1',
        tokenId: 'ethereum',
-       colorPrimary: '4EB9A3'
+       colorPrimary: '#4EB9A3'
      },
    })
  )">
@@ -102,9 +102,67 @@ or with optional params
      frameBorderRadius: '18',
      networkId: '1',
      tokenId: 'ethereum',
-     colorPrimary: '4EB9A3'
+     colorPrimary: '#4EB9A3'
    })">
   Launch Widget
 </button>
+```
+
+## Using with typescript
+
+If you compiler complains try creating react-app-env.d.ts 
+in the root of your project for react.js projects:
+
+```typescript
+/// <reference types="react-scripts" />
+import * as React from 'react';
+
+declare global {
+  interface OndefyWidgetFullscreenParams {
+    frameBorderRadius?: string;
+    colorPrimary?: string;
+    tokenId?: string;
+    networkId?: string;
+  }
+
+  type TLaunchWidgetFullscreen = (params: OndefyWidgetFullscreenParams) => void;
+
+  interface Window {
+    ethereum: any;
+    Ondefy: {
+      launchWidgetFullscreen: TLaunchWidgetFullscreen;
+    };
+  }
+
+  interface OndefyWidgetParams {
+    'frame-border-radius'?: string;
+    'frame-height'?: string;
+    'color-primary'?: string;
+    'token-id'?: string;
+    'network-id'?: string;
+  }
+  interface OndefyButtonParams {
+    'frame-border-radius'?: string;
+    'frame-height'?: string;
+    'color-primary'?: string;
+    'token-id'?: string;
+    'network-id'?: string;
+  }
+
+  interface OndefyButton
+    extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>,
+      OndefyButtonParams {}
+
+  interface OndefyWidget
+    extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>,
+      OndefyIframeParams {}
+
+  namespace JSX {
+    interface IntrinsicElements {
+      'ondefy-button': OndefyButton;
+      'ondefy-widget': OndefyWidget;
+    }
+  }
+}
 ```
 

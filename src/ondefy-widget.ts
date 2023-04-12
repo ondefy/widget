@@ -137,7 +137,8 @@ declare global {
     }
 
     get colorPrimary() {
-      return this.getAttribute('color-primary');
+      const color = this.getAttribute('color-primary');
+      return color ? color.replace('#', '') : color;
     }
 
     get _serverUrl() {
@@ -306,6 +307,8 @@ declare global {
       return ['class', 'className'];
     }
 
+    closeTimer?: ReturnType<typeof setTimeout>;
+
     bodyEl: HTMLDivElement | null;
 
     rootEl: HTMLDivElement | null;
@@ -421,6 +424,11 @@ declare global {
     toggle(open: boolean) {
       const iframe = document.createElement('IFRAME') as HTMLIFrameElement;
 
+      if (this.closeTimer) {
+        clearTimeout(this.closeTimer);
+        this.toggleLoader(true);
+      }
+
       if (open) {
         document.body.style.overflow = 'hidden';
         const { tokenId, networkId, _serverUrl, colorPrimary } =
@@ -465,7 +473,8 @@ declare global {
         if (this.rootEl) {
           this.rootEl.classList.remove('ondefy__modal--visible');
         }
-        setTimeout(() => {
+
+        this.closeTimer = setTimeout(() => {
           if (this.rootEl) {
             const iframeEl = this.rootEl.querySelector('iframe')!;
 
@@ -483,7 +492,15 @@ declare global {
     }
 
     openHandler(e: CustomEvent<TEventLaunchWidgetFullscreen>) {
-      this.params = e.detail;
+      const colorPrimary =
+        e.detail && e.detail.colorPrimary
+          ? e.detail.colorPrimary.replace('#', '')
+          : undefined;
+
+      this.params = {
+        ...e.detail,
+        colorPrimary,
+      };
 
       this.toggle(true);
     }
@@ -674,7 +691,8 @@ declare global {
     }
 
     get colorPrimary() {
-      return this.getAttribute('color-primary');
+      const color = this.getAttribute('color-primary');
+      return color ? color.replace('#', '') : color;
     }
 
     get _serverUrl() {

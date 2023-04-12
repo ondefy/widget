@@ -5,7 +5,7 @@
 </head>
 <style>
   body {
-    background: #eeeeee;
+    background: #EEEEEE;
   }
 </style>
 
@@ -21,14 +21,19 @@
   frame-border-radius="18"
   network-id="1"
   token-id="ethereum"
-  color-primary="ff0000"
+  color-primary="#FF0000"
 >
   <button>Method 1: User component triggers fullscreen</button>
 </ondefy-button>
 
 <button
   onclick="document.body.dispatchEvent(
-    new CustomEvent('ondefy:launch-widget-fullscreen')
+    new CustomEvent('ondefy:launch-widget-fullscreen', {
+      detail: {
+        _serverUrl: 'http://localhost:4004',
+             colorPrimary: '#4EB9A3',
+      }
+    })
  )">
   Method 2: Using Custom Event
 </button>
@@ -38,7 +43,8 @@
      frameBorderRadius: '18',
      networkId: '1',
      tokenId: 'ethereum',
-     colorPrimary: '4EB9A3'
+     colorPrimary: '#4EB9A3',
+     _serverUrl: 'http://localhost:4004'
    })">
   Method 3: Using Ondefy SDK
 </button>
@@ -48,7 +54,8 @@
   frame-height="500"
   network-id="1"
   token-id="ethereum"
-  color-primary="4EB9A3"
+  color-primary="#4EB9A3"
+  _server-url="http://localhost:4004"
 ></ondefy-widget>
 
 
