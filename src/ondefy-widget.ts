@@ -212,7 +212,7 @@ declare global {
           align-items: center;
           box-sizing: border-box;
           padding: 0;
-          width: min(600px, 90%);
+          width: min(600px, 95%);
           margin: 0 auto;
           transition: all 0.3s ease-in-out;
           max-height: 670px;
@@ -246,7 +246,7 @@ declare global {
           cursor: pointer;
           font-size: 20px;
           transition: transform 0.1s;
-          padding: 20px;
+          padding: 20px 0;
           line-height: 0;
         }
 
