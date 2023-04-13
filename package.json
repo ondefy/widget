@@ -1,6 +1,6 @@
 {
   "name": "@ondefy/widget",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Ondefy widget web components",
   "license": "MIT",
   "author": "Ondefy Team",
@@ -28,6 +28,7 @@
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
     "build": "rm -rf dist && rollup -c",
     "prepublish": "tsc && npm run analyze -- --exclude dist",
+    "qa": "npm run tslint && npm run lint",
     "tslint": "tsc --noEmit",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",

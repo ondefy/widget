@@ -199,10 +199,9 @@ declare global {
 
         .ondefy__modal--visible .ondefy__modal__content {
           overflow: auto;
-          animation: anvil 0.8s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
+          /*animation: anvil 0.8s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;*/
           visibility: visible;
           z-index: 200;
-          opacity: 1;
           transform: translateY(0%);
         }
 
@@ -341,14 +340,16 @@ declare global {
     }
 
     toggleLoader(show: boolean) {
-      const loader = this._shadowRoot.querySelector('.ondefy__modal__loading');
+      const loader = this._shadowRoot.querySelector(
+        '.ondefy__modal__loading'
+      ) as HTMLDivElement;
 
       if (!loader) return;
 
       if (show) {
-        loader.removeAttribute('style');
+        loader.style.display = 'flex';
       } else {
-        loader.setAttribute('style', 'display: none');
+        loader.style.display = 'none';
       }
     }
 
