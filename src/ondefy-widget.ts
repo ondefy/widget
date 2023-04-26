@@ -370,9 +370,9 @@ declare global {
         '.ondefy__modal__loading'
       ) as HTMLDivElement;
 
-      if (!loader) return;
-
       this.setSkeletonTheme((this.params || {}).theme || 'light');
+
+      if (!loader) return;
 
       if (show) {
         loader.style.display = 'flex';
@@ -396,15 +396,16 @@ declare global {
       ) as HTMLElement;
 
       const variant = theme === 'dark' ? 'dark' : 'light';
-      const prevVariant = variant === 'dark' ? 'light' : 'dark';
 
       if (body) {
-        body.classList.remove(`ondefy__modal__body--${prevVariant}`);
+        body.classList.remove(`ondefy__modal__body--light`);
+        body.classList.remove(`ondefy__modal__body--dark`);
         body.classList.add(`ondefy__modal__body--${variant}`);
       }
 
       if (loader) {
-        loader.classList.remove(`ondefy__modal__loading--${prevVariant}`);
+        loader.classList.remove(`ondefy__modal__loading--light`);
+        loader.classList.remove(`ondefy__modal__loading--dark`);
         loader.classList.add(`ondefy__modal__loading--${variant}`);
       }
     }
@@ -899,15 +900,16 @@ declare global {
       ) as HTMLElement;
 
       const variant = theme === 'dark' ? 'dark' : 'light';
-      const prevVariant = variant === 'dark' ? 'light' : 'dark';
 
       if (body) {
-        body.classList.remove(`ondefy__iframe__body--${prevVariant}`);
+        body.classList.remove(`ondefy__iframe__body--light`);
+        body.classList.remove(`ondefy__iframe__body--dark`);
         body.classList.add(`ondefy__iframe__body--${variant}`);
       }
 
       if (loader) {
-        loader.classList.remove(`ondefy__iframe__loading--${prevVariant}`);
+        loader.classList.remove(`ondefy__iframe__loading--light`);
+        loader.classList.remove(`ondefy__iframe__loading--dark`);
         loader.classList.add(`ondefy__iframe__loading--${variant}`);
       }
     }
@@ -926,6 +928,9 @@ declare global {
         colorPrimary,
         theme,
       };
+
+      this.setSkeletonTheme(theme || 'light');
+
       let querySearch = Object.entries(queryParams)
         .filter(
           ([key]) =>
