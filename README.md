@@ -11,7 +11,7 @@ import 'ondefy-widget'
 ```
 
 ### Installation from cdn
-```
+```html
 <script src="../dist/ondefy-widget.js"></script>
 ```
 
@@ -31,6 +31,7 @@ import 'ondefy-widget'
   frame-border-radius="18"
   frame-height="500"
   network-id="1"
+  theme="dark"
   token-id="ethereum"
   color-primary="#4EB9A3"
 ></ondefy-widget>
@@ -51,6 +52,7 @@ or with optional parameters
 <ondefy-widget-button
   frame-border-radius="18"
   network-id="1"
+  theme="dark"
   token-id="ethereum"
   color-primary="#ffee00"
 >
@@ -62,7 +64,7 @@ or with optional parameters
 #### Method 2: Dispatch our custom event to launch the widget fullscreen
 ```html
 <button
-  onclick="document.body.dispatchEvent(
+  onclick="document.dispatchEvent(
     new CustomEvent('ondefy:launch-ramp-fullscreen')
  )">
   Launch Widget
@@ -72,11 +74,12 @@ or with optional parameters
 or with optional parameters
 ```html
 <button
-  onclick="document.body.dispatchEvent(
+  onclick="document.dispatchEvent(
     new CustomEvent('ondefy:launch-ramp-fullscreen', {
       detail: {
        frameBorderRadius: '18',
        networkId: '1',
+       theme: 'dark',
        tokenId: 'ethereum',
        colorPrimary: '#4EB9A3'
      },
@@ -89,7 +92,7 @@ or with optional parameters
 #### Method 3: Use the method of our global object to launch the widget fullscreen
 ```html
 <button
-  onclick="Ondefy.launchRampFullscreen()">
+  onclick="Ondefy.launchWidgetFullscreen()">
   Launch Widget
 </button>
 ```
@@ -98,9 +101,10 @@ or with optional params
 
 ```html
 <button
-  onclick="Ondefy.launchRampFullscreen({
+  onclick="Ondefy.launchWidgetFullscreen({
      frameBorderRadius: '18',
      networkId: '1',
+     theme: 'dark',
      tokenId: 'ethereum',
      colorPrimary: '#4EB9A3'
    })">
@@ -121,6 +125,7 @@ declare global {
   interface OndefyWidgetFullscreenParams {
     frameBorderRadius?: string;
     colorPrimary?: string;
+    theme?: string;
     tokenId?: string;
     networkId?: string;
   }
@@ -139,6 +144,7 @@ declare global {
     'frame-height'?: string;
     'color-primary'?: string;
     'token-id'?: string;
+    'theme'?: string;
     'network-id'?: string;
   }
   interface OndefyButtonParams {
@@ -146,6 +152,7 @@ declare global {
     'frame-height'?: string;
     'color-primary'?: string;
     'token-id'?: string;
+    'theme'?: string;
     'network-id'?: string;
     class?: string;
   }

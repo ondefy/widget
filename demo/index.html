@@ -22,16 +22,19 @@
   network-id="1"
   token-id="ethereum"
   color-primary="#FF0000"
+  theme="dark"
+  _server-url="http://localhost:4004"
 >
   <button>Method 1: User component triggers fullscreen</button>
 </ondefy-button>
 
 <button
-  onclick="document.body.dispatchEvent(
+  onclick="document.dispatchEvent(
     new CustomEvent('ondefy:launch-widget-fullscreen', {
       detail: {
         _serverUrl: 'http://localhost:4004',
-             colorPrimary: '#4EB9A3',
+        theme: 'dark',
+        colorPrimary: '#4EB9A3',
       }
     })
  )">
@@ -44,6 +47,7 @@
      networkId: '1',
      tokenId: 'ethereum',
      colorPrimary: '#4EB9A3',
+     theme: 'dark',
      _serverUrl: 'http://localhost:4004'
    })">
   Method 3: Using Ondefy SDK
@@ -55,6 +59,7 @@
   network-id="1"
   token-id="ethereum"
   color-primary="#4EB9A3"
+  theme="dark"
   _server-url="http://localhost:4004"
 ></ondefy-widget>
 

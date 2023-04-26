@@ -5,6 +5,7 @@ declare global {
       colorPrimary?: string;
       tokenId?: string;
       networkId?: string;
+      theme?: string;
       _serverUrl?: string;
     }) => void;
   };
@@ -20,6 +21,9 @@ declare global {
     return;
   }
 
+  const lightColor = '#E7EAED';
+  const darkColor = '#161E25';
+
   const EVENTS = {
     launchWidgetFullscreen: 'ondefy:launch-widget-fullscreen',
     rampReady: 'ondefy:ready',
@@ -30,6 +34,7 @@ declare global {
     colorPrimary?: string;
     tokenId?: string;
     networkId?: string;
+    theme?: string;
     _serverUrl?: string;
   };
 
@@ -38,6 +43,7 @@ declare global {
     colorPrimary?: string;
     tokenId?: string;
     networkId?: string;
+    theme?: string;
     _serverUrl?: string;
     frameHeight?: string;
   };
@@ -80,6 +86,7 @@ declare global {
         'token-id',
         'color-primary',
         'network-id',
+        'theme',
         '_server-url',
       ];
     }
@@ -99,11 +106,12 @@ declare global {
     // }
 
     onClick() {
-      document.body.dispatchEvent(
+      document.dispatchEvent(
         new CustomEvent(EVENTS.launchWidgetFullscreen, {
           detail: {
             frameBorderRadius: this.frameBorderRadius,
             networkId: this.networkId,
+            theme: this.theme,
             tokenId: this.tokenId,
             colorPrimary: this.colorPrimary,
             _serverUrl: this._serverUrl,
@@ -139,6 +147,11 @@ declare global {
     get colorPrimary() {
       const color = this.getAttribute('color-primary');
       return color ? color.replace('#', '') : color;
+    }
+
+    get theme() {
+      const theme = this.getAttribute('theme');
+      return theme;
     }
 
     get _serverUrl() {
@@ -230,7 +243,6 @@ declare global {
 
         .ondefy__modal__body {
           font-size: 14px;
-          background: #fff;
           line-height: 0;
           word-wrap: break-word;
         }
@@ -260,10 +272,23 @@ declare global {
           left: 0;
           bottom: 0;
           right: 0;
-          background: #fff;
           display: flex;
           justify-content: center;
           align-items: center;
+        }
+
+
+        .ondefy__modal__loading--dark {
+            background: ${darkColor};
+        }
+        .ondefy__modal__loading--light {
+            background: ${lightColor};
+        }
+        .ondefy__modal__body--dark {
+            background: ${darkColor};
+        }
+        .ondefy__modal__body--light {
+            background: ${lightColor};
         }
 
         .ondefy__skeleton-loader {
@@ -319,6 +344,7 @@ declare global {
       colorPrimary?: string;
       tokenId?: string;
       networkId?: string;
+      theme?: string;
       _serverUrl?: string;
     };
 
@@ -346,6 +372,8 @@ declare global {
 
       if (!loader) return;
 
+      this.setSkeletonTheme((this.params || {}).theme || 'light');
+
       if (show) {
         loader.style.display = 'flex';
       } else {
@@ -356,6 +384,29 @@ declare global {
     onWindowResize() {
       const iframe = this._shadowRoot.querySelector('iframe');
       this.setIframeHeight(iframe!);
+    }
+
+    setSkeletonTheme(theme: string) {
+      const loader = this._shadowRoot.querySelector(
+        '.ondefy__modal__loading'
+      ) as HTMLElement;
+
+      const body = this._shadowRoot.querySelector(
+        '.ondefy__modal__body'
+      ) as HTMLElement;
+
+      const variant = theme === 'dark' ? 'dark' : 'light';
+      const prevVariant = variant === 'dark' ? 'light' : 'dark';
+
+      if (body) {
+        body.classList.remove(`ondefy__modal__body--${prevVariant}`);
+        body.classList.add(`ondefy__modal__body--${variant}`);
+      }
+
+      if (loader) {
+        loader.classList.remove(`ondefy__modal__loading--${prevVariant}`);
+        loader.classList.add(`ondefy__modal__loading--${variant}`);
+      }
     }
 
     setIframeHeight(iframe: HTMLIFrameElement) {
@@ -432,17 +483,21 @@ declare global {
 
       if (open) {
         document.body.style.overflow = 'hidden';
-        const { tokenId, networkId, _serverUrl, colorPrimary } =
+        const { tokenId, networkId, theme, _serverUrl, colorPrimary } =
           this.params || {};
         const queryParams = {
           tokenId,
           networkId,
+          theme,
           colorPrimary,
         };
+
         let querySearch = Object.entries(queryParams)
           .filter(
             ([key]) =>
-              queryParams[key as 'tokenId' | 'networkId' | 'colorPrimary']
+              queryParams[
+                key as 'tokenId' | 'networkId' | 'colorPrimary' | 'theme'
+              ]
           )
           .map(([key, value]) => `${key}=${value}`)
           .join('&');
@@ -453,6 +508,7 @@ declare global {
           'src',
           (_serverUrl || 'https://ramp.ondefy.com/') + querySearch
         );
+
         iframe.setAttribute('frameBorder', '0');
         iframe.setAttribute('width', '100%');
         this.setIframeHeight(iframe);
@@ -518,7 +574,7 @@ declare global {
       //   .querySelector('.ondefy__modal__close')
       //   .addEventListener('click', this.closeHandler);
 
-      document.body.addEventListener(
+      document.addEventListener(
         EVENTS.launchWidgetFullscreen,
         this.openHandler as EventListener
       );
@@ -596,7 +652,6 @@ declare global {
           font-size: 14px;
           line-height: 0;
           word-wrap: break-word;
-          background: #fff;
         }
 
         .ondefy__iframe__close {
@@ -624,11 +679,24 @@ declare global {
           left: 0;
           bottom: 0;
           right: 0;
-          background: #fff;
           display: flex;
           justify-content: center;
           align-items: center;
         }
+
+        .ondefy__iframe__loading--dark {
+            background: ${darkColor};
+        }
+        .ondefy__iframe__loading--light {
+            background: ${lightColor};
+        }
+        .ondefy__body--dark {
+            background: ${darkColor};
+        }
+        .ondefy__body--light {
+            background: ${lightColor};
+        }
+
 
         .ondefy__skeleton-loader {
             width: 40px;
@@ -663,6 +731,7 @@ declare global {
         'token-id',
         'color-primary',
         'network-id',
+        'theme',
         '_server-url',
         'frame-height',
         'frame-border-radius',
@@ -685,6 +754,10 @@ declare global {
 
     get networkId() {
       return this.getAttribute('network-id');
+    }
+
+    get theme() {
+      return this.getAttribute('theme');
     }
 
     get tokenId() {
@@ -718,6 +791,8 @@ declare global {
 
       this.onWindowResize = this.onWindowResize.bind(this);
       this.onPostMessage = this.onPostMessage.bind(this);
+
+      this.setSkeletonTheme(this.theme || 'dark');
     }
 
     toggleLoader(show: boolean) {
@@ -814,6 +889,26 @@ declare global {
       }
     }
 
+    setSkeletonTheme(theme: string) {
+      const loader = this._shadowRoot.querySelector(
+        '.ondefy__iframe__loading'
+      ) as HTMLElement;
+
+      const body = this._shadowRoot.querySelector(
+        '.ondefy__iframe__body'
+      ) as HTMLElement;
+
+      const variant = theme === 'dark' ? 'dark' : 'light';
+
+      if (body) {
+        body.classList.add(`ondefy__iframe__body--${variant}`);
+      }
+
+      if (loader) {
+        loader.classList.add(`ondefy__iframe__loading--${variant}`);
+      }
+    }
+
     renderIframe() {
       const existingIframe = this._shadowRoot.querySelector(
         'iframe'
@@ -821,16 +916,19 @@ declare global {
       const iframe =
         existingIframe ||
         (document.createElement('IFRAME') as HTMLIFrameElement);
-      const { tokenId, networkId, _serverUrl, colorPrimary } = this;
+      const { tokenId, networkId, theme, _serverUrl, colorPrimary } = this;
       const queryParams = {
         tokenId,
         networkId,
         colorPrimary,
+        theme,
       };
       let querySearch = Object.entries(queryParams)
         .filter(
           ([key]) =>
-            queryParams[key as 'tokenId' | 'networkId' | 'colorPrimary']
+            queryParams[
+              key as 'tokenId' | 'networkId' | 'colorPrimary' | 'theme'
+            ]
         )
         .map(([key, value]) => `${key}=${value}`)
         .join('&');
@@ -923,7 +1021,7 @@ declare global {
 
     window.Ondefy = {
       launchWidgetFullscreen(params: TEventLaunchWidgetFullscreen) {
-        document.body.dispatchEvent(
+        document.dispatchEvent(
           new CustomEvent(EVENTS.launchWidgetFullscreen, {
             detail: params,
           })
