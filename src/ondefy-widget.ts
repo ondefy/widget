@@ -899,12 +899,15 @@ declare global {
       ) as HTMLElement;
 
       const variant = theme === 'dark' ? 'dark' : 'light';
+      const prevVariant = variant === 'dark' ? 'light' : 'dark';
 
       if (body) {
+        body.classList.remove(`ondefy__iframe__body--${prevVariant}`);
         body.classList.add(`ondefy__iframe__body--${variant}`);
       }
 
       if (loader) {
+        loader.classList.remove(`ondefy__iframe__loading--${prevVariant}`);
         loader.classList.add(`ondefy__iframe__loading--${variant}`);
       }
     }
