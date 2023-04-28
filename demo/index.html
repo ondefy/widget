@@ -4,10 +4,12 @@
   <meta charset="utf-8">
 </head>
 <style>
-  body {
+  html, body {
     background: #EEEEEE;
   }
 </style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <!--<script src="../dist/index.min.js" async></script>-->
 <script type="module">
@@ -25,9 +27,11 @@
   theme="dark"
   _server-url="http://localhost:4004"
 >
-  <button>Method 1: User component triggers fullscreen</button>
+  <button>Method 1: User component <br>triggers fullscreen</button>
 </ondefy-button>
 
+<br />
+<br />
 <button
   onclick="document.dispatchEvent(
     new CustomEvent('ondefy:launch-widget-fullscreen', {
@@ -40,6 +44,8 @@
  )">
   Method 2: Using Custom Event
 </button>
+<br />
+<br />
 
 <button
   onclick="Ondefy.launchWidgetFullscreen({
@@ -52,6 +58,8 @@
    })">
   Method 3: Using Ondefy SDK
 </button>
+<br />
+<br />
 
 <ondefy-widget
   frame-border-radius="18"

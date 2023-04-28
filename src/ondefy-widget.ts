@@ -224,7 +224,8 @@ declare global {
           align-items: center;
           box-sizing: border-box;
           padding: 0;
-          width: min(600px, 95%);
+          width: 100%;
+          max-width: min(450px, 100%);
           margin: 0 auto;
           transition: all 0.3s ease-in-out;
           max-height: 670px;
@@ -333,6 +334,8 @@ declare global {
 
     closeTimer?: ReturnType<typeof setTimeout>;
 
+    autohideTimer?: ReturnType<typeof setTimeout>;
+
     bodyEl: HTMLDivElement | null;
 
     rootEl: HTMLDivElement | null;
@@ -384,6 +387,16 @@ declare global {
     onWindowResize() {
       const iframe = this._shadowRoot.querySelector('iframe');
       this.setIframeHeight(iframe!);
+    }
+
+    scheduleHideSkeletonOnTimeout() {
+      if (this.autohideTimer) {
+        clearTimeout(this.autohideTimer);
+      }
+
+      this.autohideTimer = setTimeout(() => {
+        this.toggleLoader(false);
+      }, 5000);
     }
 
     setSkeletonTheme(theme: string) {
@@ -515,6 +528,8 @@ declare global {
         this.setIframeHeight(iframe);
         this.setIframeRadius(iframe);
 
+        this.scheduleHideSkeletonOnTimeout();
+
         window.addEventListener('message', this.onPostMessage);
 
         if (this.bodyEl) {
@@ -527,6 +542,9 @@ declare global {
       } else {
         document.body.style.overflow = 'unset';
         window.removeEventListener('message', this.onPostMessage);
+        if (this.autohideTimer) {
+          clearTimeout(this.autohideTimer);
+        }
 
         if (this.rootEl) {
           this.rootEl.classList.remove('ondefy__modal--visible');
@@ -612,14 +630,14 @@ declare global {
         :host {
             display: inline-block;
             width: 100%;
-            max-width: 500px;
+            max-width: min(450px, 100%);
         }
 
         .ondefy__iframe {
           box-sizing: border-box;
           font-family: 'atten-new', sans-serif;
           height: max(100%, 670px);
-          width: max(100%, 350px);
+          width: min(100%, 450px);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -738,6 +756,8 @@ declare global {
         'frame-border-radius',
       ];
     }
+
+    autohideTimer: ReturnType<typeof setTimeout> | undefined;
 
     bodyEl: HTMLDivElement | null;
 
@@ -914,6 +934,16 @@ declare global {
       }
     }
 
+    scheduleHideSkeletonOnTimeout() {
+      if (this.autohideTimer) {
+        clearTimeout(this.autohideTimer);
+      }
+
+      this.autohideTimer = setTimeout(() => {
+        this.toggleLoader(false);
+      }, 5000);
+    }
+
     renderIframe() {
       const existingIframe = this._shadowRoot.querySelector(
         'iframe'
@@ -942,6 +972,7 @@ declare global {
         .join('&');
 
       this.toggleLoader(true);
+      this.scheduleHideSkeletonOnTimeout();
 
       querySearch = querySearch ? `?${querySearch}` : '';
 
