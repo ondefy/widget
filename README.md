@@ -12,7 +12,7 @@ import 'ondefy-widget'
 
 ### Installation from cdn
 ```html
-<script src="../dist/ondefy-widget.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@ondefy/widget@0.0.10"></script>
 ```
 
 ## Usage 
