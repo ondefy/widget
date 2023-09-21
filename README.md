@@ -3,16 +3,16 @@
 ### Installation using npm
 
 ```bash
-npm i ondefy-widget
+npm i @ondefy/widget
 ```
 
 ```javascript
-import 'ondefy-widget'
+import '@ondefy/widget'
 ```
 
 ### Installation from cdn
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@ondefy/widget@0.0.11"></script>
+<script src="https://cdn.jsdelivr.net/npm/@ondefy/widget@0.0.13"></script>
 ```
 
 ## Usage 
